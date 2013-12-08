@@ -1,0 +1,175 @@
+﻿Build started 12/5/2013 2:34:21 PM.
+     1>Project "C:\Users\james\Documents\GitHub\raytracer\Starter Code GLUT\Starter Code GLUT.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\Starter Code GLUT.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt camera.cpp EasyBMP.cpp furniture.cpp material.cpp node.cpp primative.cpp main.cpp raytrace.cpp sceneGraph.cpp stubs.cpp
+         camera.cpp
+         EasyBMP.cpp
+     1>EasyBMP.cpp(994): warning C4101: 'ZeroWORD' : unreferenced local variable
+         furniture.cpp
+     1>furniture.cpp(5): warning C4018: '<' : signed/unsigned mismatch
+         material.cpp
+         node.cpp
+     1>node.cpp(24): warning C4018: '<' : signed/unsigned mismatch
+         primative.cpp
+     1>primative.cpp(178): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(188): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(195): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(277): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(284): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(301): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>primative.cpp(345): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(357): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(381): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>primative.cpp(424): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(436): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(440): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(455): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(464): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(472): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(479): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(487): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(501): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(508): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(608): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(617): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(626): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(713): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(722): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(747): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(807): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(818): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(861): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(867): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(868): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>primative.cpp(872): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(873): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>primative.cpp(878): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(879): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(891): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(902): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(903): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>primative.cpp(910): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(911): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>primative.cpp(930): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(906): warning C4101: 'checkX' : unreferenced local variable
+     1>primative.cpp(948): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(949): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(1032): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(1036): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(1049): warning C4018: '<' : signed/unsigned mismatch
+     1>primative.cpp(1072): warning C4018: '<' : signed/unsigned mismatch
+         main.cpp
+     1>main.cpp(326): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(218) : see declaration of 'fopen'
+         raytrace.cpp
+     1>raytrace.cpp(29): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>raytrace.cpp(33): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>raytrace.cpp(72): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+         sceneGraph.cpp
+     1>sceneGraph.cpp(16): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(17): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(18): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(20): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>sceneGraph.cpp(21): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>sceneGraph.cpp(74): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>sceneGraph.cpp(86): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(88): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(97): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(99): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(103): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(108): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(110): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(114): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(119): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(121): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(125): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(133): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(135): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(139): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>sceneGraph.cpp(151): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>sceneGraph.cpp(173): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(174): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(175): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(179): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(180): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(184): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(186): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>sceneGraph.cpp(188): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(189): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(190): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(196): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(219): warning C4018: '<' : signed/unsigned mismatch
+     1>sceneGraph.cpp(300): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(302): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(110) : see declaration of 'strcpy'
+     1>sceneGraph.cpp(305): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(310): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(311): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(315): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(317): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>sceneGraph.cpp(319): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(320): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+     1>sceneGraph.cpp(321): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(200) : see declaration of 'strtok'
+         stubs.cpp
+     1>stubs.cpp(150): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt glew.c
+         glew.c
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\james\Documents\GitHub\raytracer\Release\Starter Code GLUT.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:../freeglut/lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\james\Documents\GitHub\raytracer\Release\Starter Code GLUT.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\james\Documents\GitHub\raytracer\Release\Starter Code GLUT.lib" /MACHINE:X86 /SAFESEH Release\camera.obj
+         Release\EasyBMP.obj
+         Release\furniture.obj
+         Release\material.obj
+         Release\node.obj
+         Release\primative.obj
+         Release\glew.obj
+         Release\main.obj
+         Release\raytrace.obj
+         Release\sceneGraph.obj
+         Release\stubs.obj
+         Generating code
+         Finished generating code
+         Starter Code GLUT.vcxproj -> C:\Users\james\Documents\GitHub\raytracer\Release\Starter Code GLUT.exe
+       FinalizeBuildStatus:
+         Deleting file "Release\Starter Code GLUT.unsuccessfulbuild".
+         Touching "Release\Starter Code GLUT.lastbuildstate".
+     1>Done Building Project "C:\Users\james\Documents\GitHub\raytracer\Starter Code GLUT\Starter Code GLUT.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:10.36
