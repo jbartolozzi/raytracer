@@ -25,9 +25,10 @@ void raytrace::runRaytrace(node* root) {
 			output(i,j)->Blue = 0;
 		}
 	}
-	mat4 trans = translate(vec3(-0.1,-0.1,0));
-	mat4 scal = scale(vec3(0.4,0.4,0.4));
-	mat4 out = trans * scal;
+	mat4 rot = rotate(45.f,vec3(1,0,0));
+	mat4 trans = translate(vec3(0,0,0));
+	mat4 scal = scale(vec3(1,0.5,1));
+	mat4 out = rot;
 	out = inverse(out);
 
 	mesh *mesh1 = new mesh("column.dat",vec3(0.5,0.5,0.5));
@@ -39,6 +40,20 @@ void raytrace::runRaytrace(node* root) {
 			// Perform raytrace per pixel
 			vec3 ray = normalize(mainCamera->getDirectionFromCoordinate(i,j));
 			
+			if (i == 320 && j == 200) {
+				output(i,j)->Red = 0;
+				output(i,j)->Green =  255;
+				output(i,j)->Blue = 0;
+			}
+
+			intersectionPoint cyl = Test_RayCylinderIntersectInverse(mainCamera->eye,-ray,out);
+			if (cyl.tValue >= 0) {
+				vec3 color = m1->getColor(cyl.point,cyl.normal,mainCamera,LPOS,LCOL);
+				output(i,j)->Red = color.x * 255;
+				output(i,j)->Green = color.y * 255;
+				output(i,j)->Blue = color.z * 255;
+			}
+
 			/*
 			for(int k = 0; k < mesh1->faces.size(); k++) {
 				intersectionPoint is3 = Test_RayPolyIntersectInverse(mainCamera->eye, -ray, mesh1->faces[k].ind1,mesh1->faces[k].ind2,mesh1->faces[k].ind3, out);
@@ -50,7 +65,20 @@ void raytrace::runRaytrace(node* root) {
 				}
 			}
 			*/
+
 			
+			/*
+			intersectionPoint cubeinter = Test_RayCubeIntersectInverse(mainCamera->eye, -ray, mat4(1.f));
+
+			if (cubeinter.tValue >= 0) {
+				vec3 color = m1->getColor(cubeinter.point,cubeinter.normal,mainCamera,LPOS,LCOL);
+					output(i,j)->Red = color.x * 255;
+					output(i,j)->Green = color.y * 255;
+					output(i,j)->Blue = color.z * 255;
+			}
+			*/
+
+			/*
 			intersectionPoint is1 = Test_RaySphereIntersectInverse(mainCamera->eye,-ray,trans);
 			intersectionPoint is2 = Test_RaySphereIntersectInverse(mainCamera->eye,-ray,mat4(1.f));
 			
@@ -82,7 +110,7 @@ void raytrace::runRaytrace(node* root) {
 					output(i,j)->Green = color.y * 255;
 					output(i,j)->Blue = color.z * 255;
 				}
-			}
+			}*/
 			
 		}
 
