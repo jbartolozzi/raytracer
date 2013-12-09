@@ -25,33 +25,28 @@ void raytrace::runRaytrace(node* root) {
 			output(i,j)->Blue = 0;
 		}
 	}
-	mat4 rot = rotate(45.f,vec3(1,0,0));
-	mat4 trans = translate(vec3(0,0,0));
+	mat4 rot = rotate(-80.f,vec3(1,0,0));
+	mat4 trans = translate(vec3(0.2,0,0));
 	mat4 scal = scale(vec3(1,0.5,1));
 	mat4 out = rot;
 	out = inverse(out);
 
 	mesh *mesh1 = new mesh("column.dat",vec3(0.5,0.5,0.5));
 
-
-
 	for (int i = 0; i < RESOX; i++) {
 		for (int j = 0; j < RESOY; j++) {
+			int xPixel = i;
+			int yPixel = (RESOY -1) - j;
 			// Perform raytrace per pixel
-			vec3 ray = normalize(mainCamera->getDirectionFromCoordinate(i,j));
+			vec3 ray = mainCamera->getDirectionFromCoordinate(i,j);
 			
-			if (i == 320 && j == 200) {
-				output(i,j)->Red = 0;
-				output(i,j)->Green =  255;
-				output(i,j)->Blue = 0;
-			}
-
-			intersectionPoint cyl = Test_RayCylinderIntersectInverse(mainCamera->eye,-ray,out);
-			if (cyl.tValue >= 0) {
+			
+			intersectionPoint cyl = Test_RayCylinderIntersectInverse(mainCamera->eye,ray,out);
+			if (cyl.tValue > 0) {
 				vec3 color = m1->getColor(cyl.point,cyl.normal,mainCamera,LPOS,LCOL);
-				output(i,j)->Red = color.x * 255;
-				output(i,j)->Green = color.y * 255;
-				output(i,j)->Blue = color.z * 255;
+				output(xPixel,yPixel)->Red = color.x * 255;
+				output(xPixel,yPixel)->Green = color.y * 255;
+				output(xPixel,yPixel)->Blue = color.z * 255;
 			}
 
 			/*
@@ -66,9 +61,9 @@ void raytrace::runRaytrace(node* root) {
 			}
 			*/
 
-			
 			/*
-			intersectionPoint cubeinter = Test_RayCubeIntersectInverse(mainCamera->eye, -ray, mat4(1.f));
+			
+			intersectionPoint cubeinter = Test_RayCubeIntersectInverse(mainCamera->eye, ray, out);
 
 			if (cubeinter.tValue >= 0) {
 				vec3 color = m1->getColor(cubeinter.point,cubeinter.normal,mainCamera,LPOS,LCOL);
@@ -79,41 +74,16 @@ void raytrace::runRaytrace(node* root) {
 			*/
 
 			/*
-			intersectionPoint is1 = Test_RaySphereIntersectInverse(mainCamera->eye,-ray,trans);
-			intersectionPoint is2 = Test_RaySphereIntersectInverse(mainCamera->eye,-ray,mat4(1.f));
-			
-			if (is1.tValue >= 0 && is2.tValue >= 0 ) {
-				if (is1.tValue > is2.tValue) {
-					vec3 color = m1->getColor(is2.point,is2.normal,mainCamera,LPOS,LCOL);
-					output(i,j)->Red = color.x * 255;
-					output(i,j)->Green = color.y * 255;
-					output(i,j)->Blue = color.z * 255;
-				}
-				else {
-					vec3 color = m1->getColor(is1.point,is1.normal,mainCamera,LPOS,LCOL);
-					output(i,j)->Red = color.x * 255;
-					output(i,j)->Green = color.y * 255;
-					output(i,j)->Blue = color.z * 255;
-				}
-			}
-			else {
-				if (is2.tValue >= 0) {
-					vec3 color = m1->getColor(is2.point,is2.normal,mainCamera,LPOS,LCOL);
-					output(i,j)->Red = color.x * 255;
-					output(i,j)->Green = color.y * 255;
-					output(i,j)->Blue = color.z * 255;
-				}
-			
-				if (is1.tValue >= 0) {
-					vec3 color = m1->getColor(is1.point,is1.normal,mainCamera,LPOS,LCOL);
-					output(i,j)->Red = color.x * 255;
-					output(i,j)->Green = color.y * 255;
-					output(i,j)->Blue = color.z * 255;
-				}
+			intersectionPoint is1 = Test_RaySphereIntersectInverse(mainCamera->eye,ray,out);
+			if (is1.tValue > 0) {
+				vec3 color = m1->getColor(is1.point,is1.normal,mainCamera,LPOS,LCOL);
+				output(xPixel,yPixel)->Red = color.x * 255;
+				output(xPixel,yPixel)->Green = color.y * 255;
+				output(xPixel,yPixel)->Blue = color.z * 255;
 			}*/
 			
+		
 		}
-
 		if (i%25 == 0) {
 			cout << ((float)i/RESOX) * 100.f << "% Complete" << endl;
 		}

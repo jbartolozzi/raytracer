@@ -2,35 +2,7 @@
 
 using namespace glm;
 
-float intersectPlane(const vec3 &n, const vec3 &p0, const vec3& l0, const vec3 &l)
-{
-    // assuming vectors are all normalized
-    float denom = dot(n, l);
-    if (denom > 0.f) {
-        vec3 p0l0 = p0 - l0;
-        double d = dot(p0l0, n) / denom;
-		if (d > 0) {
-			return d;
-		}
-    }
-    return -1;
-}
 
-float intersectDisk(const vec3 &n, const vec3 &p0, const float &radius, const vec3 &l0, const vec3 &l)
-{
-    float d1 = intersectPlane(n, p0, l0, l);
-    if (d1 > 0) {
-        vec3 p = l0 + l * d1;
-        float x = p.x * p.x;
-		float z = p.z * p.z;
-		if (x + z <= 0.25) {
-			return d1;
-        //return (sqrtf(d2) <= radius);
-        // or you can use the following optimisation (and precompute radius^2)
-		} // where radius2 = radius * radius
-     }
-     return -1;
-}
 
 
 intersectionPoint Test_RaySphereIntersect(vec3 const& P0, vec3 const& V0, mat4 const& T) {
@@ -54,7 +26,7 @@ intersectionPoint Test_RaySphereIntersectInverse(vec3 const& P0, vec3 const& V0,
 
 	float A = glm::dot(V03,V03);
 	float B = 2*(glm::dot(V03,P03));
-	float C = glm::dot(P03,P03) - 1;
+	float C = glm::dot(P03,P03) - 0.25;
 	float discriminant = B*B - (4*A*C);
 	if (discriminant < 0) {
 		return output;
@@ -125,6 +97,17 @@ intersectionPoint Test_RayPolyIntersectInverse(vec3 const& P0, vec3 const& V0, v
 	}
 }
 
+float intersectPlane(const vec3 &n, const vec3 &p0, const vec3& l0, const vec3 &l)
+{
+    // assuming vectors are all normalized
+	float denom = dot(n,normalize(l));
+	if (denom > 0) {
+		float t = dot(n,(p0-l0)) / denom;
+		return t;
+	}
+	return -1;
+}
+
 
 intersectionPoint Test_RayCubeIntersect(vec3 const& P0, vec3 const& V0, mat4 const& T) {
 	glm::vec4 newP0 = glm::inverse(T) * glm::vec4(P0,1.f);
@@ -149,31 +132,38 @@ intersectionPoint Test_RayCubeIntersectInverse(vec3 const& P0, vec3 const& V0, m
 	// top face
 	glm::vec3 norm = glm::vec3(0,1,0);
 	glm::vec3 p0 = glm::vec3(0,0.5,0);
-	float t1 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+	float t1 = intersectPlane(norm,p0,P03,V03);
+	//float t1 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+
 	// bottom face
 	norm = glm::vec3(0,-1,0);
 	p0 = glm::vec3(0,-0.5,0);
-	float t2 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+	float t2 = intersectPlane(norm,p0,P03,V03);
+	//float t2 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
 	
 	// front face
 	norm = glm::vec3(0,0,1);
 	p0 = glm::vec3(0,0,0.5);
-	float t3 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+	float t3 = intersectPlane(norm,p0,P03,V03);
+	//float t3 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
 
 	// back face
 	norm = glm::vec3(0,0,-1);
 	p0 = glm::vec3(0,0,-0.5);
-	float t4 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+	float t4 = intersectPlane(norm,p0,P03,V03);
+	//float t4 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
 
 	// left face
 	norm = glm::vec3(-1,0,0);
 	p0 = glm::vec3(-0.5,0,0);
-	float t5 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+	//float t5 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+	float t5 = intersectPlane(norm,p0,P03,V03);
+	
 	// right face
 	norm = glm::vec3(1,0,0);
 	p0 = glm::vec3(0.5,0,0);
-	float t6 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
-	
+	//float t6 = glm::dot((p0 - P03),norm) / glm::dot(V03,norm);
+	float t6 = intersectPlane(norm,p0,P03,V03);
 
 	tees.push_back(t1);
 	tees.push_back(t2);
@@ -181,15 +171,15 @@ intersectionPoint Test_RayCubeIntersectInverse(vec3 const& P0, vec3 const& V0, m
 	tees.push_back(t4);
 	tees.push_back(t5);
 	tees.push_back(t6);
-	float min = t1;
+	float min = 100000;
 	for(unsigned int i = 0; i < tees.size(); i++) {
 		if (tees[i] > 0 && tees[i] < min) {
 			min = tees[i];
 		}
 	}
 	vec3 checkPoint = P03 + min*V03;
-	if (checkPoint.x <= 0.5 && checkPoint.y <= 0.5 && checkPoint.z <= 0.5
-		&& checkPoint.x >= -0.5 && checkPoint.y >= -0.5 && checkPoint.z >= -0.5 && min >= 0) {
+	if (checkPoint.x <= 0.51 && checkPoint.y <= 0.51 && checkPoint.z <= 0.51
+		&& checkPoint.x >= -0.51 && checkPoint.y >= -0.51 && checkPoint.z >= -0.51 && min > 0) {
 			output.tValue = min;
 			output.point = checkPoint;
 			// find the largest magnitude of x,y,z position
@@ -240,6 +230,24 @@ intersectionPoint Test_RayCylinderIntersect(vec3 const& P0, vec3 const& V0, mat4
 	return Test_RayCylinderIntersectInverse(P01,V01,T);
 }
 
+
+
+float intersectDisk(const vec3 &n, const vec3 &p0, const float &radius, const vec3 &l0, const vec3 &l)
+{
+		float d1 = intersectPlane(-n, p0, l0, l);
+		if (d1 > 0) {
+			vec3 p = l0 + d1 * normalize(l);
+			float x = p.x * p.x;
+			float z = p.z * p.z;
+			if (x + z <= radius*radius) {
+				return d1;
+			//return (sqrtf(d2) <= radius);
+			// or you can use the following optimisation (and precompute radius^2)
+			} // where radius2 = radius * radius
+		}
+		return -1;
+}
+
 intersectionPoint Test_RayCylinderIntersectInverse(vec3 const& P0, vec3 const& V0, mat4 const& T) {
 	intersectionPoint output;
 	output.tValue = -1;
@@ -247,7 +255,7 @@ intersectionPoint Test_RayCylinderIntersectInverse(vec3 const& P0, vec3 const& V
 	output.point = vec3(0,0,0);
 
 	vec4 P02 = T * vec4(P0,1);
-	vec4 V02 = T * vec4(V0,1);
+	vec4 V02 = T * vec4(V0,0);
 	vec3 P03 = vec3(P02.x,P02.y,P02.z);
 	vec3 V03 = vec3(V02.x,V02.y,V02.z);
 
@@ -290,31 +298,82 @@ intersectionPoint Test_RayCylinderIntersectInverse(vec3 const& P0, vec3 const& V
 		}
 	}
 
-	// top
-	vec3 norm1 = glm::vec3(0,1,0);
-	vec3 p01 = glm::vec3(0,0.5,0);
-	float dC1 = intersectDisk(norm1,p01,0.5,P03,V03);
-
-	if (dC1 > -1) {
-		int qtws = 0;
+	// find the smallest tube value
+	float min = 1000000;
+	for (unsigned int i = 0; i < tees.size(); i++) {
+		if (tees[i] < min && tees[i] > 0) {
+			min = tees[i];
+		}
 	}
-
-	// bottom
-	vec3 norm2 = glm::vec3(0,-1.f,0);
-	vec3 p02 = glm::vec3(0,-0.5,0);
-	float dC2 = intersectDisk(norm2,p02,0.5,P03,V03);
-
-	float minTeeCap;
-	if (dC1 > 0 && dC2 < 0) {
-		minTeeCap = dC1;
+	// check if the point is in the tube
+	vec3 checkpoint = P03 + min * V03;
+	if (checkpoint.y < 0.49999 && checkpoint.y > -0.49999) {
+		output.point = checkpoint;
+		vec2 norm = normalize(vec2(output.point.x,output.point.z));
+		output.normal = normalize(vec3(norm.x,0,norm.y));
+		output.tValue = min;
+		return output;
 	}
-	else if (dC1 < 0 && dC2 > 0) {
-		minTeeCap = dC2;
-	}
+	// otherwise check the caps
 	else {
-		minTeeCap = min(dC1,dC2);
+		// top
+		vec3 norm1 = glm::vec3(0,1,0);
+		vec3 p01 = glm::vec3(0,0.5,0);
+		float dC1 = intersectDisk(norm1,p01,0.5,P03,V03);
+
+		// bottom
+		vec3 norm2 = glm::vec3(0,-1.0f,0);
+		vec3 p02 = glm::vec3(0,-0.5,0);
+		float dC2 = intersectDisk(norm2,p02,0.5,P03,V03);
+		
+		float minTeeCap;
+		if (dC1 > 0 && dC2 < 0) {
+			minTeeCap = dC1;
+		}
+		else if (dC1 < 0 && dC2 > 0) {
+			minTeeCap = dC2;
+		}
+		else {
+			minTeeCap = glm::min(dC1,dC2);
+		}
+
+		if (minTeeCap > 0) {
+			output.point = P03 + minTeeCap * V03;
+			output.tValue = minTeeCap;
+			output.normal = normalize(vec3(output.point.x, 1.f, output.point.z));
+		}
+		return output;
+	}
+}
+	/* otherwise check the caps
+	else {
+		// top
+		vec3 norm1 = glm::vec3(0,1.0f,0);
+		vec3 p01 = glm::vec3(0,0.5,0);
+		float dC1 = intersectDisk(norm1,p01,0.5,P03,V03);
+
+		// bottom
+		vec3 norm2 = glm::vec3(0,-1.0f,0);
+		vec3 p02 = glm::vec3(0,-0.5,0);
+		float dC2 = intersectDisk(norm2,p02,0.5,P03,V03);
+
+		// find the smaller of the cap values
+		float minTeeCap;
+		if (dC1 > 0 && dC2 < 0) {
+			minTeeCap = dC1;
+		}
+		else if (dC1 < 0 && dC2 > 0) {
+			minTeeCap = dC2;
+		}
+		else {
+			minTeeCap = glm::min(dC1,dC2);
+		}
+
+		vec3 checkpoint = P03 + minTeeCap * V0;
+
 	}
 
+	/*
 	// check the t values
 	if (tees.size() < 1 && minTeeCap < 0) {
 		return output;
@@ -330,22 +389,22 @@ intersectionPoint Test_RayCylinderIntersectInverse(vec3 const& P0, vec3 const& V
 		vec3 checkPoint = P03 + min * V03;
 		
 		// if the intersection is outside the cap in the infinite tube
-		// check the caps for intersections
-		if (checkPoint.y <= 0.5f && checkPoint.y >= -0.5f) {
+		// 
+		if (checkPoint.y <= 0.500001f && checkPoint.y >= -0.5000001f) {
 			output.point = checkPoint;
 			vec2 norm = normalize(vec2(output.point.x,output.point.z));
 			output.normal = normalize(vec3(norm.x,0,norm.y));
 			output.tValue = min;
 
-			if (minTeeCap > 0) {
+			if (minTeeCap > 0 && minTeeCap < min) {
 				output.tValue = minTeeCap;
 				output.point = P03 + minTeeCap * V03;
-				if (output.point.y < 0.51f && output.point.y > 0.49f) {
-					output.normal = vec3(0,-1,0);
+				if (output.point.y < 0.500001f && output.point.y > 0.4999999f) {
+					output.normal = vec3(0,1,0);
 					return output;
 				}
 				else if (output.point.y > -0.51f && output.point.y < -0.49f) {
-					output.normal = vec3(0,1,0);
+					output.normal = vec3(0,-1,0);
 					return output;
 				}
 			}
@@ -361,10 +420,10 @@ intersectionPoint Test_RayCylinderIntersectInverse(vec3 const& P0, vec3 const& V
 	else if (minTeeCap > 0) {
 		output.tValue = minTeeCap;
 		output.point = P03 + minTeeCap * V03;
-		if (output.point.y == 0.5f) {
+		if (output.point.y >= 0.49999f) {
 			output.normal = vec3(0,1,0);
 		}
-		else if (output.point.y == -0.5f) {
+		else if (output.point.y >= -0.499999f) {
 			output.normal = vec3(0,-1,0);
 		}
 		return output;
@@ -375,6 +434,5 @@ intersectionPoint Test_RayCylinderIntersectInverse(vec3 const& P0, vec3 const& V
 		output.point = vec3(0,0,0);
 		output.normal = vec3(0,0,0);
 	}
-}
-
-
+	
+}*/

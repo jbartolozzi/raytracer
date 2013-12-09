@@ -28,5 +28,5 @@ vec3 camera::getDirectionFromCoordinate(int sx, int sy) {
 		camSet = true;
 	}
 	glm::vec3 P = M + (2*((float)sx/(imgWidth-1)) - 1)*H + (2*((float)sy/(imgHeight-1)) - 1)*V;
-	return P;
+	return normalize(P-eye);
 }
