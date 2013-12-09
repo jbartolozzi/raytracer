@@ -16,6 +16,9 @@ using namespace std;
 
 class primative {
 public:
+	enum primativeTypes {
+		CUBE, SPHERE, CYLINDER, PLANE, MESH
+	};
 	struct face {
 		glm::vec3 ind1;
 		glm::vec3 ind2;
@@ -28,6 +31,9 @@ public:
 			faceNormal = _faceNormal;
 		}
 	};
+	float WIDTH;
+	float HEIGHT;
+	primativeTypes polyType;
 	bool isSelected;
 	glm::vec4 origin;
 	glm::vec3 color;
@@ -88,6 +94,15 @@ public:
 	cylinder();
 	cylinder(glm::vec3 _origin, glm::vec3 _color, glm::vec2 dimensions);
 	// Constructs the buffers to be passed out
+	void constructBuffers();
+	void reConstructBuffers();
+};
+
+class plane : public primative {
+public:
+
+	plane();
+	plane(glm::vec3 origin, glm::vec2 dimensions);
 	void constructBuffers();
 	void reConstructBuffers();
 };

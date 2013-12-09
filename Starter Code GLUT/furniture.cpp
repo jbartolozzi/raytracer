@@ -11,9 +11,10 @@ void furniture::draw(unsigned int _vbo, unsigned int _cbo, unsigned int _ibo, un
 }
 
 ffloor::ffloor(int x, int z) {
-	cube* c = new cube(glm::vec3(0.f,-0.1f,0.f),glm::vec3(0.9f,0.9f,0.9f),glm::vec3((float)x,0.1f,(float)z));
-	primatives.push_back(c);
-	height = 0.1f;
+	//cube* c = new cube(glm::vec3(0.f,-0.1f,0.f),glm::vec3(0.9f,0.9f,0.9f),glm::vec3((float)x,0.1f,(float)z));
+	plane *p = new plane(glm::vec3(0,0,0),glm::vec2((float)x,(float)z));
+	primatives.push_back(p);
+	height = 0.0f;
 }
 
 chair::chair(glm::vec3 _color) {
@@ -125,7 +126,14 @@ meshFurniture::meshFurniture(glm::vec3 _color, char* filename) {
 
 furniture_sphere::furniture_sphere(glm::vec3 _color) {
 	furnitureColor = _color;
-	sphere *s1 = new sphere(glm::vec3(0,0,0),_color,0.5);
-	height = 0.5;
+	sphere *s1 = new sphere(glm::vec3(0,0.5,0),_color,0.5);
+	height = 1;
 	primatives.push_back(s1);
+}
+
+furniture_cylinder::furniture_cylinder(glm::vec3 _color) {
+	furnitureColor = _color;
+	cylinder *c1 = new cylinder(glm::vec3(0,0,0),glm::vec3(1,1,1), glm::vec2(0.5,0.5));
+	height = 1;
+	primatives.push_back(c1);
 }

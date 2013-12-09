@@ -71,9 +71,10 @@ sceneGraph::sceneGraph(char* filename, vector<material*> materials) {
 	lamp* lamp1 = new lamp(glm::vec3(0.f,0.6,0.8));
 	table* table1 = new table(glm::vec3(0.f,0.6,0.8));
 	fileCabinet* fc1 = new fileCabinet(glm::vec3(0.f,0.6,0.8));
-
+	furniture_sphere *sphere1 = new furniture_sphere(vec3(1,1,1));
+	furniture_cylinder *cylinder1 = new furniture_cylinder(vec3(1,1,1));
 	ffloor *floor1 = new ffloor(10*xSize,10*zSize);
-	node* rootFloor = new node(NULL,NULL,floor1,0.f,glm::vec3(1.f,1.f,1.f),glm::vec3(3.f,0.f,0.f),raytraceConfigMaterials[0]);
+	node* rootFloor = new node(NULL,NULL,floor1,0.f,glm::vec3(1.f,1.f,1.f),glm::vec3(0.f,0.f,0.f),raytraceConfigMaterials[1]);
 	root = rootFloor;
 	vector<node*>* newChildren = new vector<node*>;
 	
@@ -127,6 +128,28 @@ sceneGraph::sceneGraph(char* filename, vector<material*> materials) {
 				handleChildren(i,newNode);
 			}
 		}
+		else if(objectTypes[i] == SPHERE) {
+			if (indexMap[objectPositions[i].x + (xSize) * objectPositions[i].y] == NULL) {
+				node* newNode = new node(rootFloor,NULL,sphere1,objectRotations[i],objectsScales[i],glm::vec3(objectPositions[i].x,0.f,objectPositions[i].y),raytraceConfigMaterials[objectMaterial[i]]);
+				indexMap[objectPositions[i].x + (xSize) * objectPositions[i].y] = newNode;
+				newChildren->push_back(newNode);
+			}
+			else {
+				node* newNode = new node(indexMap[objectPositions[i].x + (xSize) * objectPositions[i].y],NULL,sphere1,objectRotations[i],objectsScales[i],glm::vec3(objectPositions[i].x,0.f,objectPositions[i].y),raytraceConfigMaterials[objectMaterial[i]]);
+				handleChildren(i,newNode);
+			}
+		}
+		else if(objectTypes[i] == CYLINDER) {
+			if (indexMap[objectPositions[i].x + (xSize) * objectPositions[i].y] == NULL) {
+				node* newNode = new node(rootFloor,NULL,cylinder1,objectRotations[i],objectsScales[i],glm::vec3(objectPositions[i].x,0.f,objectPositions[i].y),raytraceConfigMaterials[objectMaterial[i]]);
+				indexMap[objectPositions[i].x + (xSize) * objectPositions[i].y] = newNode;
+				newChildren->push_back(newNode);
+			}
+			else {
+				node* newNode = new node(indexMap[objectPositions[i].x + (xSize) * objectPositions[i].y],NULL,cylinder1,objectRotations[i],objectsScales[i],glm::vec3(objectPositions[i].x,0.f,objectPositions[i].y),raytraceConfigMaterials[objectMaterial[i]]);
+				handleChildren(i,newNode);
+			}
+		}
 		else if(objectTypes[i] == MESH) {
 			meshFurniture* mf1 = new meshFurniture(glm::vec3(0.f,0.6,0.8),meshFileNames[currentMeshNumber]);
 
@@ -169,6 +192,12 @@ void sceneGraph::readObjBlock(char* line1, char* line2, char* line3, char* line4
 	}
 	else if (strcmp(line1, "lamp") == 0) {
 		objectTypes.push_back(objTypes::LAMP);
+	}
+	else if (strcmp(line1, "sphere") == 0) {
+		objectTypes.push_back(objTypes::SPHERE);
+	}
+	else if (strcmp(line1, "cylinder") == 0) {
+		objectTypes.push_back(objTypes::CYLINDER);
 	}
 
 	char* materialNumber = strtok(line2, " ");

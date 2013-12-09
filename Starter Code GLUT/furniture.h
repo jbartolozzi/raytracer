@@ -7,6 +7,7 @@ public:
 	glm::vec3 furnitureColor;
 	float height;
 	vector<primative*> primatives;
+	vector<glm::mat4> inverseTransforms;
 	void draw(unsigned int _vbo, unsigned int _cbo, unsigned int _ibo, unsigned int _nbo, unsigned int positionLocation,
 		unsigned int colorLocation, unsigned int normalLocation, unsigned int u_modelMatrixLocation, glm::mat4 transform, glm::vec3 _color, bool selected);
 };
@@ -44,5 +45,10 @@ public:
 class furniture_sphere : public furniture {
 public:
 	furniture_sphere(glm::vec3 _color);
+};
+
+class furniture_cylinder : public furniture {
+public:
+	furniture_cylinder(glm::vec3 _color);
 };
 #endif

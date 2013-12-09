@@ -8,7 +8,7 @@
 class sceneGraph {
 private:
 	enum objTypes {
-		CHAIR, LAMP, TABLE, FILECABINET,MESH
+		CHAIR, LAMP, TABLE, FILECABINET,SPHERE,CYLINDER,MESH
 	};
 public:
 	vector<material*> raytraceConfigMaterials;

@@ -55,6 +55,109 @@ void primative::constructBuffers() {
 
 void primative::reConstructBuffers() {
 }
+
+plane::plane() {
+	WIDTH = 1.f;
+	HEIGHT = 1.f;
+	polyType = PLANE;
+	isSelected = false;
+	origin  = glm::vec4(0.f,0.f,0.f,1.0);
+	color = glm::vec3(1.f,1.f,0.f);
+	glm::vec4 p0 = glm::vec4(-0.5f, 0.f, 0.5,1.f);
+	glm::vec4 p1 = glm::vec4( 0.5f, 0.f, 0.5,1.f);
+	glm::vec4 p2 = glm::vec4(-0.5f, 0.f,-0.5,1.f);
+	glm::vec4 p3 = glm::vec4( 0.5f, 0.f,-0.5,1.f);
+	points.push_back(p0);
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+
+	constructBuffers();
+}
+
+plane::plane(glm::vec3 _origin, glm::vec2 dimensions) {
+	WIDTH = dimensions.x;
+	HEIGHT = dimensions.y;
+	polyType = PLANE;
+	isSelected = false;
+	origin = glm::vec4(_origin.x, _origin.y, _origin.z, 1.f);
+	color = glm::vec3(1.f,1.f,0.f);
+	glm::vec4 p0 = glm::vec4(-0.5f * dimensions.x, 0.f, 0.5 * dimensions.y,1.f) + origin;
+	glm::vec4 p1 = glm::vec4( 0.5f * dimensions.x, 0.f, 0.5 * dimensions.y,1.f) + origin;
+	glm::vec4 p2 = glm::vec4(-0.5f * dimensions.x, 0.f,-0.5 * dimensions.y,1.f) + origin;
+	glm::vec4 p3 = glm::vec4( 0.5f * dimensions.x, 0.f,-0.5 * dimensions.y,1.f) + origin;
+	points.push_back(p0);
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+
+	constructBuffers();
+}
+
+void plane::constructBuffers() {
+	vector<float> vertices;
+	vector<float> normals;
+	vector<float> colors;
+	vector<unsigned short> index;
+
+	for (int i = 0; i < points.size(); i++ ) {
+		vertices.push_back(points[i].x);
+		vertices.push_back(points[i].y);
+		vertices.push_back(points[i].z);
+		vertices.push_back(1.f);
+	}
+
+	vbo = vertices;
+
+	if (isSelected == false) {
+		for (int i = 0; i < points.size(); i++) {
+			colors.push_back(color.r);
+			colors.push_back(color.g);
+			colors.push_back(color.b);
+		}
+	}
+	else {
+		for (int i = 0; i < points.size(); i++) {
+			colors.push_back(0.8f);
+			colors.push_back(0.f);
+			colors.push_back(0.f);
+		}
+	}
+
+	cbo = colors;
+
+	index.push_back(0); index.push_back(1); index.push_back(3);
+	index.push_back(0); index.push_back(2); index.push_back(3);
+	ibo = index;
+
+	for (int i = 0; i < 4; i++) {
+		normals.push_back(1.f);
+		normals.push_back(1.f);
+		normals.push_back(1.f);
+		normals.push_back(0.f);
+	}
+	nbo = normals;
+}
+
+void plane::reConstructBuffers() {
+	vector<float> colors;
+	if (isSelected == false) {
+		for (int i = 0; i < points.size(); i++) {
+			colors.push_back(color.r);
+			colors.push_back(color.g);
+			colors.push_back(color.b);
+		}
+	}
+	else {
+		for (int i = 0; i < points.size(); i++) {
+			colors.push_back(0.8f);
+			colors.push_back(0.f);
+			colors.push_back(0.f);
+		}
+	}
+
+	cbo = colors;
+}
 //####################################################################################################################
 //    v7----- v6
 //   /|      /|
@@ -64,6 +167,7 @@ void primative::reConstructBuffers() {
 //  |/      |/
 //  v0------v1
 cube::cube() {
+	polyType = CUBE;
 	isSelected = false;
 	origin  = glm::vec4(0.f,0.f,0.f,1.0);
 	color = glm::vec3(1.f,1.f,0.f);
@@ -119,6 +223,7 @@ cube::cube() {
 //  |/      |/
 //  v0------v1
 cube::cube(glm::vec3 _origin, glm::vec3 _color, glm::vec3 dimensions) {
+	polyType = CUBE;
 	isSelected = false;
 	float width = dimensions.x;
 	float height = dimensions.y;
@@ -295,6 +400,7 @@ void cube::reConstructBuffers() {
 
 
 sphere::sphere() {
+	polyType = SPHERE;
 	isSelected = false;
 	origin  = glm::vec4(0.f,1.f,0.f,1.0);
 	color = glm::vec3(0.f,1.f,0.f);
@@ -371,6 +477,7 @@ int sphere::getMidPoint(int a, int b) {
 }
 
 sphere::sphere(glm::vec3 _origin, glm::vec3 _color, float radius) {
+	polyType = SPHERE;
 	isSelected = false;
 	origin = glm::vec4(_origin,1.0);
 	color = _color;
@@ -516,8 +623,10 @@ void sphere::reConstructBuffers() {
 //###############################################################################################################################
 
 cylinder::cylinder() {
+	polyType = CYLINDER;
 	isSelected = false;
-	height = 2;
+	HEIGHT = 0.5;
+	WIDTH = 0.5;
 	numSegments = 24;
 	float radius = 1;
 	origin  = glm::vec4(0.f,0.f,0.f,1.0);
@@ -558,7 +667,10 @@ cylinder::cylinder() {
 }
 
 cylinder::cylinder(glm::vec3 _origin, glm::vec3 _color, glm::vec2 dimensions) {
+	polyType = CYLINDER;
 	isSelected = false;
+	WIDTH = dimensions.x;
+	HEIGHT = dimensions.y;
 	float height = dimensions.y;
 	numSegments = 24;
 	float radius = dimensions.x;
@@ -733,6 +845,7 @@ void cylinder::reConstructBuffers() {
 
 
 mesh::mesh(char* filename, glm::vec3 _color) {
+	polyType = MESH;
 	color = _color;
 	isSelected = false;
 	readFile(filename);
