@@ -47,6 +47,7 @@ public:
 
 	void runRaytrace(node* root);
 	intersectionPoint recursiveTrace(node* node, vec3 eye, vec3 ray);
+	vec3 reflectionTrace(node* node, vec3 p0, vec3 v0, int iteration);
 
 };
 

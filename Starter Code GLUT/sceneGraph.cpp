@@ -74,7 +74,10 @@ sceneGraph::sceneGraph(char* filename, vector<material*> materials) {
 	furniture_sphere *sphere1 = new furniture_sphere(vec3(1,1,1));
 	furniture_cylinder *cylinder1 = new furniture_cylinder(vec3(1,1,1));
 	ffloor *floor1 = new ffloor(10*xSize,10*zSize);
-	node* rootFloor = new node(NULL,NULL,floor1,0.f,glm::vec3(1.f,1.f,1.f),glm::vec3(0.f,0.f,0.f),raytraceConfigMaterials[1]);
+	material *floorMat = new material(vec3(0.6,0.6,0.6),vec3(0,0,0),100,0.5);
+	node* rootFloor = new node(NULL,NULL,floor1,0.f,glm::vec3(1.f,1.f,1.f),glm::vec3(0.f,0.f,0.f),floorMat);
+	//vec3 _diffuse, vec3 _ambient, float _shininess, float _refCoeffy
+
 	root = rootFloor;
 	vector<node*>* newChildren = new vector<node*>;
 	

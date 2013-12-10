@@ -15,7 +15,7 @@ material::material() {
 }
 
 // point, normal, eye, light pos
-vec3 material::getColor(vec3 point, vec3 normal, camera *cam, vec3 light, vec3 lightColor) {
+vec3 material::getColor(vec3 point, vec3 normal, vec3 p0, vec3 light, vec3 lightColor) {
 
 	vec3 lightDirection = normalize(light-point);
 	float distance = length(lightDirection);
@@ -33,7 +33,7 @@ vec3 material::getColor(vec3 point, vec3 normal, camera *cam, vec3 light, vec3 l
 	
 	// calculate specular
 	vec3 specularM;
-	vec3 H = normalize(lightDirection + normalize(cam->eye - point));
+	vec3 H = normalize(lightDirection + normalize(p0 - point));
 	float NdotH = dot( normal, H);
 	intensity = pow( clamp(NdotH,0.f,1.f), shininess);
 	if (shininess == 0) {

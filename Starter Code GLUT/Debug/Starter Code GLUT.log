@@ -1,26 +1,29 @@
-﻿Build started 12/9/2013 7:53:07 PM.
+﻿Build started 12/9/2013 10:08:30 PM.
      1>Project "C:\Users\james\Documents\GitHub\raytracer\Starter Code GLUT\Starter Code GLUT.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\Starter Code GLUT.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt raytrace.cpp
          raytrace.cpp
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(53): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(54): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
      1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(55): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(59): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(60): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(61): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(140): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(186): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(195): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(231): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(56): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(57): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(63): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(64): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(65): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(69): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(70): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(71): warning C4244: '=' : conversion from 'float' to 'ebmpBYTE', possible loss of data
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(168): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(214): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(223): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(259): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(235): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(263): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(275): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(303): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
-     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(206): warning C4715: 'raytrace::recursiveTrace' : not all control paths return a value
+     1>c:\users\james\documents\github\raytracer\starter code glut\raytrace.cpp(234): warning C4715: 'raytrace::recursiveTrace' : not all control paths return a value
          All outputs are up-to-date.
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\james\Documents\GitHub\raytracer\Debug\Starter Code GLUT.exe" /INCREMENTAL /NOLOGO /LIBPATH:../freeglut/lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\james\Documents\GitHub\raytracer\Debug\Starter Code GLUT.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\james\Documents\GitHub\raytracer\Debug\Starter Code GLUT.lib" /MACHINE:X86 Debug\camera.obj
@@ -42,4 +45,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.75
+Time Elapsed 00:00:02.18

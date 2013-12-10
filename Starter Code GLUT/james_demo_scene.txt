@@ -1,13 +1,13 @@
 10 10 2
 
-cylinder
-1
+sphere
+2
 0 0
 0
 1 1 1
 
 sphere
-1
+2
 0 0
 0
 1 1 1

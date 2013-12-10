@@ -18,7 +18,7 @@ public:
 	float reflectivityCoefficient;
 	material(vec3 _diffuse, vec3 _ambient, float _shininess, float _refCoeff);
 	material();
-	vec3 getColor(vec3 point, vec3 normal, camera *cam, vec3 light, vec3 lightColor);
+	vec3 getColor(vec3 point, vec3 normal, vec3 p0, vec3 light, vec3 lightColor);
 };
 
 #endif

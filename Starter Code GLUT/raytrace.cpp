@@ -32,7 +32,7 @@ void raytrace::runRaytrace(node* root) {
 	mat4 invOut = inverse(out);
 
 	mesh *mesh1 = new mesh("column.dat",vec3(0.5,0.5,0.5));
-
+	int NUMBOUNCES = 1;
 	for (int i = 0; i < RESOX; i++) {
 		for (int j = 0; j < RESOY; j++) {
 			int xPixel = i;
@@ -44,6 +44,8 @@ void raytrace::runRaytrace(node* root) {
 			intersectionPoint outputIntersection = recursiveTrace(root,mainCamera->eye,ray);
 			if (outputIntersection.tValue > 0) {
 				vec3 color;
+				float reflec = outputIntersection.node->objMaterial->reflectivityCoefficient;
+				vec3 mater = outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,mainCamera->eye,LPOS,LCOL);
 				//get shadow
 				// cast trace from point to light, if there is an inerseciton, return ambient
 				intersectionPoint shadowIntersection = recursiveTrace(root,vec3(0.03) + outputIntersection.point, normalize(LPOS - outputIntersection.point));
@@ -54,28 +56,22 @@ void raytrace::runRaytrace(node* root) {
 					output(xPixel,yPixel)->Green = color.y * 255;
 					output(xPixel,yPixel)->Blue = color.z * 255;
 				}
-				else {
-					color = outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,mainCamera,LPOS,LCOL);
-						output(xPixel,yPixel)->Red = color.x * 255;
-						output(xPixel,yPixel)->Green = color.y * 255;
-						output(xPixel,yPixel)->Blue = color.z * 255;
-				}
-				/*	if (outputIntersection.node->objMaterial->reflectivityCoefficient == 1) {
 
-					}
-					else if (outputIntersection.node->objMaterial->reflectivityCoefficient == 0) {
-						color = outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,mainCamera,LPOS,LCOL);
+				else {
+					if (outputIntersection.node->objMaterial->reflectivityCoefficient == 0) {
+						color = mater;
 						output(xPixel,yPixel)->Red = color.x * 255;
 						output(xPixel,yPixel)->Green = color.y * 255;
 						output(xPixel,yPixel)->Blue = color.z * 255;
 					}
 					else {
-
+						color = (1-reflec) * mater + (reflec *  reflectionTrace(root,outputIntersection.point, normalize(reflect(outputIntersection.point - mainCamera->eye, outputIntersection.normal)),NUMBOUNCES));
+						output(xPixel,yPixel)->Red = color.x * 255;
+						output(xPixel,yPixel)->Green = color.y * 255;
+						output(xPixel,yPixel)->Blue = color.z * 255;
 					}
-				}*/
+				}
 			}
-
-			
 
 			//test plane
 			
@@ -96,7 +92,6 @@ void raytrace::runRaytrace(node* root) {
 				output(xPixel,yPixel)->Green = color.y * 255;
 				output(xPixel,yPixel)->Blue = color.z * 255;
 			}*/
-
 			
 			// For meshes, transform the values before testing the intersections, DO NOT PASS IN THE TRANSFORMATION MATRICES
 			/*intersectionPoint poly = Test_RayPolyIntersectInverse(mainCamera->eye,ray,out,invOut,root,mesh1->faces);
@@ -116,7 +111,6 @@ void raytrace::runRaytrace(node* root) {
 				output(i,j)->Blue = color.z * 255;
 			}*/
 			
-
 			/*
 			intersectionPoint is1 = Test_RaySphereIntersectInverse(mainCamera->eye,ray,out,invOut,root);
 			if (is1.tValue > 0) {
@@ -133,6 +127,40 @@ void raytrace::runRaytrace(node* root) {
 	}
 	cout << "FILEWRITE COMPLETE" << endl;
 	output.WriteToFile("test1.bmp");
+}
+
+vec3 raytrace::reflectionTrace(node* node, vec3 p0, vec3 v0, int iteration) {
+	intersectionPoint outputIntersection = recursiveTrace(node,p0,v0);
+	if (outputIntersection.tValue > 0 && iteration > 0) {
+		float reflec = outputIntersection.node->objMaterial->reflectivityCoefficient;
+		vec3 mater = outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,p0,LPOS,LCOL);
+		vec3 color;
+		//get shadow
+		// cast trace from point to light, if there is an inerseciton, return ambient
+		intersectionPoint shadowIntersection = recursiveTrace(node,vec3(0.03) + outputIntersection.point, normalize(LPOS - outputIntersection.point));
+
+		if (shadowIntersection.tValue > 0.0001) {
+			// return shadow
+			return ACOL;
+		}
+		else {
+			if (outputIntersection.node->objMaterial->reflectivityCoefficient == 0) {
+				color = mater;
+			}
+			else {
+				color = (1-reflec) * mater +  (reflec *  reflectionTrace(node,outputIntersection.point, normalize(reflect(outputIntersection.point - p0, outputIntersection.normal)),iteration--));
+			}
+		}
+		return color;
+	}
+	else {
+		if (outputIntersection.tValue > 0) {
+			return outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,p0,LPOS,LCOL);
+		}
+		else {
+			return vec3(0,0,0);
+		}
+	}
 }
 
 intersectionPoint raytrace::recursiveTrace(node* sceneNode, vec3 eye, vec3 ray) {
