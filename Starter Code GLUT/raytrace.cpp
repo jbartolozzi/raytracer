@@ -25,11 +25,11 @@ void raytrace::runRaytrace(node* root) {
 			output(i,j)->Blue = 0;
 		}
 	}
-	mat4 rot = rotate(90.f,vec3(1,0,0));
-	mat4 trans = translate(vec3(0.1,0,0));
-	mat4 scal = scale(vec3(3,3,3));
-	mat4 out = trans;
-	out = inverse(out);
+	mat4 rot = rotate(45.f,vec3(0,1,0));
+	mat4 trans = translate(vec3(0,1,0));
+	mat4 scal = scale(vec3(1,1,1));
+	mat4 out = scal;
+	mat4 invOut = inverse(out);
 
 	mesh *mesh1 = new mesh("column.dat",vec3(0.5,0.5,0.5));
 
@@ -40,19 +40,47 @@ void raytrace::runRaytrace(node* root) {
 			// Perform raytrace per pixel
 			vec3 ray = mainCamera->getDirectionFromCoordinate(i,j);
 			
-			/*
+			// get shaded value
 			intersectionPoint outputIntersection = recursiveTrace(root,mainCamera->eye,ray);
-			if (outputIntersection.tValue > 0 && outputIntersection.tValue != 10000) {
-				vec3 color = outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,mainCamera,LPOS,LCOL);
-				
-				output(xPixel,yPixel)->Red = color.x * 255;
-				output(xPixel,yPixel)->Green = color.y * 255;
-				output(xPixel,yPixel)->Blue = color.z * 255;
-			}*/
+			if (outputIntersection.tValue > 0) {
+				vec3 color;
+				//get shadow
+				// cast trace from point to light, if there is an inerseciton, return ambient
+				intersectionPoint shadowIntersection = recursiveTrace(root,vec3(0.03) + outputIntersection.point, normalize(LPOS - outputIntersection.point));
+
+				if (shadowIntersection.tValue > 0.0001) {
+					color = ACOL;
+					output(xPixel,yPixel)->Red = color.x * 255;
+					output(xPixel,yPixel)->Green = color.y * 255;
+					output(xPixel,yPixel)->Blue = color.z * 255;
+				}
+				else {
+					color = outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,mainCamera,LPOS,LCOL);
+						output(xPixel,yPixel)->Red = color.x * 255;
+						output(xPixel,yPixel)->Green = color.y * 255;
+						output(xPixel,yPixel)->Blue = color.z * 255;
+				}
+				/*	if (outputIntersection.node->objMaterial->reflectivityCoefficient == 1) {
+
+					}
+					else if (outputIntersection.node->objMaterial->reflectivityCoefficient == 0) {
+						color = outputIntersection.node->objMaterial->getColor(outputIntersection.point,outputIntersection.normal,mainCamera,LPOS,LCOL);
+						output(xPixel,yPixel)->Red = color.x * 255;
+						output(xPixel,yPixel)->Green = color.y * 255;
+						output(xPixel,yPixel)->Blue = color.z * 255;
+					}
+					else {
+
+					}
+				}*/
+			}
+
+			
+
 			//test plane
 			
 			/*
-			intersectionPoint plane1 = Test_RayPlaneIntersectInverse(mainCamera->eye,ray,mat4(1.f),root);
+			intersectionPoint plane1 = Test_RayPlaneIntersectInverse(mainCamera->eye,ray,out,invOut,2,2,root);
 			if (plane1.tValue > 0) {
 				vec3 color = m1->getColor(plane1.point,plane1.normal,mainCamera,LPOS,LCOL);
 				output(xPixel,yPixel)->Red = color.x * 255;
@@ -61,7 +89,7 @@ void raytrace::runRaytrace(node* root) {
 			}*/
 
 			/*
-			intersectionPoint cyl = Test_RayCylinderIntersectInverse(mainCamera->eye,ray,out);
+			intersectionPoint cyl = Test_RayCylinderIntersectInverse(mainCamera->eye,ray,out,invOut,0.5,0.5,root);
 			if (cyl.tValue > 0) {
 				vec3 color = m1->getColor(cyl.point,cyl.normal,mainCamera,LPOS,LCOL);
 				output(xPixel,yPixel)->Red = color.x * 255;
@@ -69,53 +97,35 @@ void raytrace::runRaytrace(node* root) {
 				output(xPixel,yPixel)->Blue = color.z * 255;
 			}*/
 
-			/*
+			
 			// For meshes, transform the values before testing the intersections, DO NOT PASS IN THE TRANSFORMATION MATRICES
-			vec4 newEye = out * vec4(mainCamera->eye,1);
-			vec4 newRay = out * vec4(ray,1);
-			vector<intersectionPoint> meshPoints;
-			for(int k = 0; k < mesh1->faces.size(); k++) {
-				intersectionPoint is3 = Test_RayPolyIntersectInverse(vec3(newEye),vec3(newRay), mesh1->faces[k].ind1,mesh1->faces[k].ind2,mesh1->faces[k].ind3, mat4(1.f));
-				if (is3.tValue > 0) {
-					meshPoints.push_back(is3);
-				}
-			}
-
-			intersectionPoint minCheck;
-			minCheck.tValue = 10000;
-			for (int p = 0; p < meshPoints.size(); p++) {
-				if (meshPoints[p].tValue < minCheck.tValue) {
-					minCheck = meshPoints[p];
-				}
-			}
-			if (minCheck.tValue < 10000) {
-				vec3 color = m1->getColor(minCheck.point,minCheck.normal,mainCamera,LPOS,LCOL);
-				output(xPixel,yPixel)->Red = color.r * 255;
-				output(xPixel,yPixel)->Green = color.g * 255;
-				output(xPixel,yPixel)->Blue = color.b * 255;
+			/*intersectionPoint poly = Test_RayPolyIntersectInverse(mainCamera->eye,ray,out,invOut,root,mesh1->faces);
+			if (poly.tValue > 0) {
+				vec3 color = m1->getColor(poly.point,poly.normal,mainCamera,LPOS,LCOL);
+				output(i,j)->Red = color.x * 255;
+				output(i,j)->Green = color.y * 255;
+				output(i,j)->Blue = color.z * 255;
 			}*/
 			
 			/*
-			intersectionPoint cubeinter = Test_RayCubeIntersectInverse(mainCamera->eye, ray, out);
-
+			intersectionPoint cubeinter = Test_RayCubeIntersectInverse(mainCamera->eye, ray, out, invOut,root);
 			if (cubeinter.tValue >= 0) {
 				vec3 color = m1->getColor(cubeinter.point,cubeinter.normal,mainCamera,LPOS,LCOL);
-					output(i,j)->Red = color.x * 255;
-					output(i,j)->Green = color.y * 255;
-					output(i,j)->Blue = color.z * 255;
+				output(i,j)->Red = color.x * 255;
+				output(i,j)->Green = color.y * 255;
+				output(i,j)->Blue = color.z * 255;
 			}*/
 			
 
-			
-			intersectionPoint is1 = Test_RaySphereIntersectInverse(mainCamera->eye,ray,out,root);
+			/*
+			intersectionPoint is1 = Test_RaySphereIntersectInverse(mainCamera->eye,ray,out,invOut,root);
 			if (is1.tValue > 0) {
 				vec3 color = m1->getColor(is1.point,is1.normal,mainCamera,LPOS,LCOL);
 				output(xPixel,yPixel)->Red = color.x * 255;
 				output(xPixel,yPixel)->Green = color.y * 255;
 				output(xPixel,yPixel)->Blue = color.z * 255;
-			}
+			}*/
 			
-		
 		}
 		if (i%100 == 0) {
 			cout << ((float)i/RESOX) * 100.f << "% Complete" << endl;
@@ -131,28 +141,28 @@ intersectionPoint raytrace::recursiveTrace(node* sceneNode, vec3 eye, vec3 ray) 
 		intersectionPoint is;
 		// check if the poly is a sphere
 		if (sceneNode->nodeFurniture->primatives[i]->polyType == primative::primativeTypes::SPHERE) {
-			is = Test_RaySphereIntersectInverse(eye,ray,sceneNode->invertedTransform,sceneNode);
+			is = Test_RaySphereIntersectInverse(eye,ray,sceneNode->transformation,sceneNode->invertedTransform,sceneNode);
 			if (is.tValue > 0) {
 				intersectionPoints.push_back(is);
 			}
 		}
 		//cylinder
 		else if (sceneNode->nodeFurniture->primatives[i]->polyType == primative::primativeTypes::CYLINDER) {
-			is = Test_RayCylinderIntersectInverse(eye,ray,sceneNode->invertedTransform,sceneNode->nodeFurniture->primatives[i]->WIDTH,sceneNode->nodeFurniture->primatives[i]->HEIGHT,sceneNode);
+			is = Test_RayCylinderIntersectInverse(eye,ray,sceneNode->transformation,sceneNode->invertedTransform,sceneNode->nodeFurniture->primatives[i]->WIDTH,sceneNode->nodeFurniture->primatives[i]->HEIGHT,sceneNode);
 			if (is.tValue > 0) {
 				intersectionPoints.push_back(is);
 			}
 		}
 		//cube
 		else if (sceneNode->nodeFurniture->primatives[i]->polyType == primative::primativeTypes::CUBE) {
-			is = Test_RayCubeIntersectInverse(eye,ray,sceneNode->invertedTransform,sceneNode);
+			is = Test_RayCubeIntersectInverse(eye,ray,sceneNode->transformation,sceneNode->invertedTransform,sceneNode);
 			if (is.tValue > 0) {
 				intersectionPoints.push_back(is);
 			}
 		}
 		//plane
 		else if (sceneNode->nodeFurniture->primatives[i]->polyType == primative::primativeTypes::PLANE) {
-			is = Test_RayPlaneIntersectInverse(eye,ray,sceneNode->invertedTransform,sceneNode->nodeFurniture->primatives[i]->WIDTH,sceneNode->nodeFurniture->primatives[i]->HEIGHT,sceneNode);
+			is = Test_RayPlaneIntersectInverse(eye,ray,sceneNode->transformation,sceneNode->invertedTransform,sceneNode->nodeFurniture->primatives[i]->WIDTH,sceneNode->nodeFurniture->primatives[i]->HEIGHT,sceneNode);
 			if (is.tValue > 0) {
 				intersectionPoints.push_back(is);
 			}
@@ -162,6 +172,13 @@ intersectionPoint raytrace::recursiveTrace(node* sceneNode, vec3 eye, vec3 ray) 
 		}
 		// or mesh
 		else {
+			is = Test_RayPolyIntersectInverse(eye,ray,sceneNode->transformation,sceneNode->invertedTransform,sceneNode,sceneNode->nodeFurniture->primatives[0]->faces);
+			if (is.tValue > 0) {
+				intersectionPoints.push_back(is);
+			}
+			if (is.tValue > 0) {
+				int hey = 0;
+			}
 		}
 	}
 
@@ -173,8 +190,7 @@ intersectionPoint raytrace::recursiveTrace(node* sceneNode, vec3 eye, vec3 ray) 
 
 	//if there were any intersections, go through them and find the smallest
 	if (intersectionPoints.size() > 0) {
-		intersectionPoint minT;
-		minT.tValue = 10000;
+		intersectionPoint minT = intersectionPoints[0];
 		//for the size of the array set minT to the smallest t value intersection
 		for (int i = 0; i < intersectionPoints.size(); i++) {
 			if (intersectionPoints[i].tValue < minT.tValue && intersectionPoints[i].tValue > 0) {

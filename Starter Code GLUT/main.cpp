@@ -67,7 +67,7 @@ void displayText();
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(1280, 720);
+	glutInitWindowSize(640, 480);
 	glutCreateWindow("Starter Code");
 
 	//Call GLEW only _after_ you get the window
@@ -178,7 +178,7 @@ void init() {
 
 	glUniform3fv(eyePositionShaderIndex,1,&eyeVector[0]);
 
-	resize(1280, 720);
+	resize(640, 480);
 	old = clock();
 }
 
@@ -404,7 +404,7 @@ void performRaytrace() {
 	glUniform3fv(lightLocation,1,&raytrace1->LPOS[0]);
 	glUniform3fv(lightColorShaderIndex,1,&raytrace1->LCOL[0]);
 	glUniform3fv(ambientColor,1,&raytrace1->ACOL[0]);
-	resize(1280, 720);
+	resize(640, 480);
 
 	raytrace1->runRaytrace(myScene->root);
 }
